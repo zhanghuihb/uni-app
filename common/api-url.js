@@ -1,23 +1,14 @@
 // const ENV = 'dev';
-// const ENV = 'test';
 const ENV = 'prod';
 
 let baseUrl = {
-  lanbitou: {
-    dev: 'http://192.168.2.132:8080/lanbitou',
-    // dev: 'http://192.168.0.104:8080/lanbitou',
-    test: 'http://192.168.2.132:8080/lanbitou',
-    prod: 'http://192.168.2.132:8080/lanbitou'
-  },
-  user: {
-    dev: 'http://192.168.2.132:8081/user',
-    // dev: 'http://192.168.0.104:8081/user',
-    test: 'http://192.168.2.132:8081/user',
-    prod: 'http://192.168.2.132:8081/user'
+  mongo: {
+    dev: 'http://192.168.2.132:8090/mongo',
+    prod: 'http://106.14.47.3:8090/mongo'
   }
 };
 
-const b = (c = 'lanbitou', e = 'dev') => {
+const b = (c = 'mongo', e = 'dev') => {
   if (ENV !== 'dev') {
     return baseUrl[c][ENV];
   } else {
@@ -26,17 +17,8 @@ const b = (c = 'lanbitou', e = 'dev') => {
 };
 
 export default {
-  lanbitou: {
-    getConsumerInfos: b('lanbitou') +'/consumerInfo/getConsumerInfos',
-    getAllCodes: b('lanbitou') + '/consumerCategory/getAllCodes',
-    getConsumerInfoById: b('lanbitou') + '/consumerInfo/getConsumerInfoById',
-    editConsumerInfo: b('lanbitou') + '/consumerInfo/editConsumerInfo',
-    addConsumerInfo: b('lanbitou') + '/consumerInfo/addConsumerInfo',
-    getAccountInfo: b('lanbitou') + '/consumerInfo/getAccountInfo',
-    staticsConsumerInfoByMonth: b('lanbitou') + '/consumerInfo/staticsConsumerInfoByMonth'
-  },
-  user: {
-    login: b('user') + '/user/skip/login',
-    saveOpinion: b('user') + '/opinion/saveOpinion'
+  mongo: {
+    login: b('mongo') + '/user/skip/login',
+    saveOpinion: b('mongo') + '/opinion/saveOpinion'
   }
 }
