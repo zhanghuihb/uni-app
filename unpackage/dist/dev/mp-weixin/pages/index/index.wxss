@@ -3,3 +3,64 @@
 	height: 400rpx;
 }
 
+/* 最新发布 */
+.latest-publish {
+	margin-top: 12rpx;
+	padding: 20rpx;
+}
+.latest-title-row {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+}
+.latest-ico {
+	width: 30rpx;
+	height: 30rpx;
+	margin-top: 10rpx;
+}
+.latest-title {
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 20rpx;
+}
+.latest-content {
+	width: 100%;
+	white-space: nowrap;
+}
+.single-goods {
+	display: inline-block;
+	margin-left: 20rpx;
+}
+.goods-wapper {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+}
+.show_image {
+	width: 200rpx;
+	height: 270rpx;
+}
+.goods-name {
+	width: 200rpx;
+	margin-top: 10rpx;
+	font-size: 14px;
+	font-weight: bold;
+	/* 名字超出则省略*/
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.want_to_buy_count {
+	margin-top: 10rpx;
+	font-size: 10px;
+	color: grey;
+}
+

@@ -27,15 +27,15 @@ export const CancelAuthError = new MyError('没有授权', -100);
 // 可以把 wx 对象里的方法(传入参数中包含 success 和 fail)转换为返回 promise 的方法
 function promisifyWx(name) {
   return function (param) {
-    console.log('wx.' + name + ' [executing] ->', param);
+    console.log('uni.' + name + ' [executing] ->', param);
     return new Promise((resolve, reject) => {
       let base = {
         success: (res) => {
-          console.log('wx.' + name + ' [success]:', res);
+          console.log('uni.' + name + ' [success]:', res);
           resolve(res);
         },
         fail: (err) => {
-          console.log('wx.' + name + ' [fail]:', err);
+          console.log('uni.' + name + ' [fail]:', err);
           reject(new MyError(err.errMsg, -2));
         }
       };
@@ -50,12 +50,13 @@ for (let name in wx) {
   exports.wx[name] = promisifyWx(name);
 }
 
-export function genReqBody(token, param, unionId, userId) {
+export function genReqBody(param) {
   let body = {
     appId: 1,
-    unionId: unionId,
-    token: token,
-    userId: userId,
+	openId: '',
+    unionId: '',
+    token: '',
+    userId: 0,
     param: param
   };
 
@@ -65,41 +66,41 @@ export function genReqBody(token, param, unionId, userId) {
 /**
 * 对 Tool.wx.request 进一步处理
 */
-export function request(url, token, param, unionId, userId, callback) {
-  let p = exports.wx.request({
-    url,
-    method: 'POST',
-    data: genReqBody(token, param, unionId, userId)
-  }).then(res => {
-    let resBody = res.data;
-    if (resBody && typeof resBody === 'object') {
-      if (resBody.code === 0) {
-        return resBody.data;
-      } else if (resBody.code > 0) {
-        let message = resBody.showMsg || '服务器错误';
-        let extra;
-        if (message.length > 50) {
-          extra = message;
-          message = '服务器错误';
-        }
-        throw new MyError(message, resBody.code, extra);
-        wx.showToast({
-          title: message,
-          duration: 1000,
-          icon: 'none'
-        })
-      }
-    }
-    throw new MyError('服务器错误', -1, resBody);
-  }, err => {
-    throw new MyError('没有网络连接或服务器错误', err.code, err);
-  });
+export function request(url, param, callback) {
+	let p = uni.request({
+	url,
+	method: 'POST',
+	data: genReqBody(param)
+	}).then(res => {
+		let resBody = res[1].data;
+		if (resBody && typeof resBody === 'object') {
+		  if (resBody.code === 0) {
+			return resBody.data;
+		  } else if (resBody.code > 0) {
+			let message = resBody.showMsg || '服务器错误';
+			let extra;
+			if (message.length > 50) {
+			  extra = message;
+			  message = '服务器错误';
+			}
+			throw new MyError(message, resBody.code, extra);
+			wx.showToast({
+			  title: message,
+			  duration: 1000,
+			  icon: 'none'
+			})
+		  }
+		}
+		throw new MyError('服务器错误', -1, resBody);
+		}, err => {
+		throw new MyError('没有网络连接或服务器错误', err.code, err);
+	});
 
-  if (typeof callback === 'function') {
-    p.then(data => callback(null, data), callback);
-  } else {
-    return p;
-  }
+	if (typeof callback === 'function') {
+		p.then(data => callback(null, data), callback);
+	} else {
+		return p;
+	}
 }
 
 /**

@@ -904,7 +904,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7331,7 +7331,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7352,14 +7352,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7445,7 +7445,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uni-app","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -7883,7 +7883,7 @@ module.exports = g;
 /***/ }),
 /* 4 */
 /*!********************************!*\
-  !*** E:/工作/uni-app/pages.json ***!
+  !*** I:/工作/uni-app/pages.json ***!
   \********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -8022,6 +8022,251 @@ function normalizeComponent (
   }
 }
 
+
+/***/ }),
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */
+/*!***************************************!*\
+  !*** I:/工作/uni-app/common/api-url.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var ENV = 'dev';
+// const ENV = 'prod';
+
+var baseUrl = {
+  mongo: {
+    dev: 'http://192.168.2.49:8090/mongo',
+    prod: 'http://106.14.47.3:8090/mongo' } };
+
+
+
+var b = function b() {var c = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'mongo';var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'dev';
+  if (ENV !== 'dev') {
+    return baseUrl[c][ENV];
+  } else {
+    return baseUrl[c][e];
+  }
+};var _default =
+
+{
+  mongo: {
+    login: b('mongo') + '/user/skip/login',
+    saveOpinion: b('mongo') + '/opinion/saveOpinion',
+    getIndexCarousel: b('mongo') + '/index/getIndexCarousel',
+    getIndexLatestPublish: b('mongo') + '/index/getIndexLatestPublish' } };exports.default = _default;
+
+/***/ }),
+/* 18 */
+/*!**************************************!*\
+  !*** I:/工作/uni-app/common/common.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.MyError = MyError;exports.genReqBody = genReqBody;exports.request = request;exports.ensureAuth = ensureAuth;exports.login = login;exports.getSystemInfo = getSystemInfo;exports.CancelAuthError = void 0;var _apiUrl = _interopRequireDefault(__webpack_require__(/*! ./api-url.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+
+/**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    * 自定义 Error 类
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    * code == 0 正确
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    * code > 0 HTTP 请求，服务器端返回的错误码
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    * code == -1 HTTP 请求，服务器返回的数据格式不正确，服务器错误
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    */
+function MyError(message, code, extra) {
+  if (!Error.captureStackTrace) {
+    this.stack = new Error().stack;
+  } else {
+    Error.captureStackTrace(this, this.constructor);
+  }
+  this.message = message;
+  this.code = code;
+  this.extra = extra;
+}
+
+MyError.prototype = new Error();
+MyError.prototype.name = 'MyError';
+MyError.prototype.constructor = MyError;
+
+var CancelAuthError = new MyError('没有授权', -100);
+
+// 可以把 wx 对象里的方法(传入参数中包含 success 和 fail)转换为返回 promise 的方法
+exports.CancelAuthError = CancelAuthError;function promisifyWx(name) {
+  return function (param) {
+    console.log('uni.' + name + ' [executing] ->', param);
+    return new Promise(function (resolve, reject) {
+      var base = {
+        success: function success(res) {
+          console.log('uni.' + name + ' [success]:', res);
+          resolve(res);
+        },
+        fail: function fail(err) {
+          console.log('uni.' + name + ' [fail]:', err);
+          reject(new MyError(err.errMsg, -2));
+        } };
+
+      wx[name](Object.assign({}, param, base));
+    });
+  };
+}
+
+exports.wx = {};
+
+for (var name in wx) {
+  exports.wx[name] = promisifyWx(name);
+}
+
+function genReqBody(param) {
+  var body = {
+    appId: 1,
+    openId: '',
+    unionId: '',
+    token: '',
+    userId: 0,
+    param: param };
+
+
+  return body;
+}
+
+/**
+  * 对 Tool.wx.request 进一步处理
+  */
+function request(url, param, callback) {
+  var p = uni.request({
+    url: url,
+    method: 'POST',
+    data: genReqBody(param) }).
+  then(function (res) {
+    var resBody = res[1].data;
+    if (resBody && typeof resBody === 'object') {
+      if (resBody.code === 0) {
+        return resBody.data;
+      } else if (resBody.code > 0) {
+        var message = resBody.showMsg || '服务器错误';
+        var extra;
+        if (message.length > 50) {
+          extra = message;
+          message = '服务器错误';
+        }
+        throw new MyError(message, resBody.code, extra);
+        wx.showToast({
+          title: message,
+          duration: 1000,
+          icon: 'none' });
+
+      }
+    }
+    throw new MyError('服务器错误', -1, resBody);
+  }, function (err) {
+    throw new MyError('没有网络连接或服务器错误', err.code, err);
+  });
+
+  if (typeof callback === 'function') {
+    p.then(function (data) {return callback(null, data);}, callback);
+  } else {
+    return p;
+  }
+}
+
+/**
+  * @param {string} options.fn
+  * @param {string} options.confirm.title
+  * @param {string} options.confirm.content
+  * @param {string} options.confirm.showCancel
+  * @param {object} options.params
+  * @param {boolean} options.onlyOnce
+  */
+function ensureAuth(options) {
+  return exports.wx[options.fn](_objectSpread({}, options.params)).
+  then(function (res) {return res;}, function (err) {
+    if (err && err.message && /auth deny/i.test(err.message)) {
+      return exports.wx.showModal({
+        showCancel: options.confirm.showCancel,
+        title: options.confirm.title,
+        content: options.confirm.content }).
+      then(function (res) {
+        if (res.confirm) {
+          return exports.wx.openSetting().
+          then(function (res) {
+            if (options.onlyOnce) {
+              throw err;
+            } else {
+              return ensureAuth(options);
+            }
+          });
+        } else {
+          throw CancelAuthError;
+        }
+      });
+    } else {
+      throw err;
+    }
+  });
+}
+
+function login() {
+  var options = {
+    fn: 'getUserInfo',
+    confirm: {
+      title: '微信授权',
+      content: '击掌王者需要获得你的公开信息（昵称、头像等）',
+      showCancel: true } };
+
+
+
+  return Promise.all([
+  exports.wx.login(),
+  ensureAuth(options)]).
+  then(function (res) {
+    var code = res[0].code;
+    var userInfo = res[1].userInfo;
+    var param = {
+      code: code,
+      encryptedData: res[1].encryptedData,
+      iv: res[1].iv };
+
+
+    return exports.wx.request({
+      url: _apiUrl.default.user.login,
+      method: 'POST',
+      data: genReqBody('', param, '') }).
+    then(function (res) {
+      if (res.data.code === 0) {
+        return {
+          loginInfo: res.data.data };
+
+      } else {
+        var message = res.data.showMsg || '服务器错误';
+        var extra;
+        if (message.length > 50) {
+          extra = message;
+          message = '服务器错误';
+        }
+        throw new MyError(message, res.data.code, extra);
+      }
+    });
+  });
+}
+
+function getSystemInfo() {
+  return Promise.all([
+  exports.wx.getSystemInfo()]).
+  then(function (res) {
+    return {
+      systemInfo: res[0] };
+
+  });
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 ]]);
