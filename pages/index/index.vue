@@ -9,7 +9,7 @@
 		<!-- 最新发布 -->
 		<view class="page-block latest-publish">
 			<view class="latest-title-row">
-				<image class="latest-ico" src="../../static/index/new.png"></image>
+				<image class="latest-ico" src="../../static/index/fabu.png"></image>
 				<view class="latest-title">
 					最新发布
 				</view>
@@ -28,6 +28,53 @@
 				</view>
 			</view>
 		</scroll-view>
+		
+		<!-- 热点新闻 -->
+		<view class="page-block latest-publish">
+			<view class="latest-title-row">
+				<image class="latest-ico" src="../../static/index/news.png"></image>
+				<view class="latest-title">
+					热点新闻
+				</view>
+			</view>
+		</view>
+		
+		<view class="page-block hot-news">
+			<video class="single-hot-news" v-for="news in indexHotNews" 
+			:src="news.newsUrl" :title="news.newsName" :poster="news.newsPoster" controls></video>
+		</view>
+		
+		<!-- 猜你喜欢 -->
+		<view class="page-block latest-publish">
+			<view class="latest-title-row">
+				<image class="latest-ico" src="../../static/index/cainixihuan.png"></image>
+				<view class="latest-title">
+					猜你喜欢
+				</view>
+			</view>
+		</view>
+		<view class="page-block guess-u-like">
+			<view class="single-like-goods" v-for="(goods,index) in latestPublishGoods" :key="index">
+				<image :src="goods.goodsImage" class="goods-like-image"></image>
+				<view class="goods-like-desc">
+					<view class="goods-like-name">
+						{{goods.goodsName}}
+					</view>
+					<view class="goods-like-want-buy">
+						{{goods.wantToBuyCount}}人想要
+					</view>
+					<view class="goods-like-info">
+						{{goods.publishTime}}
+					</view>
+				</view>
+				<view class="goods-like-operation" @click="praiseMe">
+					<image src="../../static/index/zan.png" class="goods-zan-ico"></image>
+					<view class="goods-zan-desc">点赞</view>
+					<view class="goods-zan-animation" :animation="animationData">+1</view>
+				</view>
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -38,12 +85,22 @@
 		data() {
 			return {
 				carousels: [],
-				latestPublishGoods: []
+				latestPublishGoods: [],
+				indexHotNews: [],
+				animationData: {}
 			}
 		},
 		onLoad() {
+			// 页面创建时，创建一个临时动画对象
+			this.animation = uni.createAnimation();
+			
 			this.getIndexCarousel();
 			this.getIndexLatestPublish();
+			this.getIndexHotNews();
+		},
+		onUnload() {
+			// 页面卸载的时候，清除动画对象
+			this.animationData = {};
 		},
 		methods: {
 			getIndexCarousel(){
@@ -61,6 +118,26 @@
 						this.latestPublishGoods = res;
 					}
 				)
+			},
+			getIndexHotNews(){
+				let param = {};
+				common.request(ApiUrl.mongo.getIndexHotNews,param).then(
+					res => {
+						this.indexHotNews = res;
+					}
+				)
+			},
+			// 实现点赞动画效果
+			praiseMe(){
+				// 构建动画实例
+				this.animation.translateY(-60).opacity(1).step({duration: 500});
+				// 导出动画实例到组建，实现动画效果
+				this.animationData = this.animation.export();
+				//  还原动画
+				setTimeout(function() {
+					this.animation.translateY(0).opacity(0).step({duration: 0});
+					this.animationData = this.animation.export();
+				}.bind(this), 500);
 			}
 		}
 	}

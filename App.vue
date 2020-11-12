@@ -18,7 +18,6 @@
 		width: 100%;
 		height: 100%;
 		background-color: #e4ffe6;
-		position: absolute;
 	}
 	.page-block {
 		background-color: #FFFFFF;

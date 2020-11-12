@@ -3,7 +3,7 @@ const ENV = 'dev';
 
 let baseUrl = {
   mongo: {
-    dev: 'http://192.168.2.49:8090/mongo',
+    dev: 'http://192.168.2.20:8090/mongo',
     prod: 'http://106.14.47.3:8090/mongo'
   }
 };
@@ -22,5 +22,6 @@ export default {
     saveOpinion: b('mongo') + '/opinion/saveOpinion',
     getIndexCarousel: b('mongo') + '/index/getIndexCarousel',
 	getIndexLatestPublish: b('mongo') + '/index/getIndexLatestPublish',
+	getIndexHotNews: b('mongo') + '/index/getIndexHotNews',
   }
 }

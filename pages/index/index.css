@@ -12,12 +12,13 @@
 .latest-title-row {
 	display: flex;
 	flex-direction: row;
+	height: 50upx;
+	align-items: center;
 }
 
 .latest-ico {
 	width: 30upx;
 	height: 30upx;
-	margin-top: 10upx;
 }
 
 .latest-title {
@@ -29,6 +30,7 @@
 .latest-content {
 	width: 100%;
 	white-space: nowrap;
+	padding: 0 0 10upx 0;
 }
 
 .single-goods {
@@ -62,5 +64,88 @@
 	color: grey;
 }
 	
+/* 热点新闻 */
+.hot-news {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 0upx 20upx 20upx 20upx;
+}
+
+.single-hot-news {
+	width: 350upx;
+	height: 200upx;
+	margin-top: 10upx;
+}
+
+/* 猜你喜欢 */
+.guess-u-like {
+	display: flex;
+	flex-direction: column;
+}
 	
+.single-like-goods {
+	display: flex;
+	flex-direction: row;
+	padding: 0upx 20upx 20upx 20upx;
+}
+
+.goods-like-image {
+	width: 180upx;
+	height: 240upx;
+	border-radius: %3;
+}
+
+.goods-like-desc {
+	width: 410upx;
+	height: 240upx;
+	margin-left: 20upx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.goods-like-name {
+	width: 370upx;
+	font-size: 18px;
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.goods-like-want-buy {
+	font-size: 14px;
+}
+
+.goods-like-info {
+	font-size: 14px;
+}
+
+.goods-like-operation {
+	width: 160upx;
+	height: 240upx;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-left: dashed 2px #dbdbda;
+}
+
+.goods-zan-ico {
+	width: 40upx;
+	height: 40upx;
+}
+
+.goods-zan-desc {
+	font-size: 14px;
+	color: #feab2a;
+}
+
+.goods-zan-animation {
+	font-size: 14px;
+	color: #feab2a;
+	opacity: 0;
+}
 	
