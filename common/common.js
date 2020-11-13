@@ -67,12 +67,16 @@ export function genReqBody(param) {
 * 对 Tool.wx.request 进一步处理
 */
 export function request(url, param, callback) {
+	uni.showLoading({
+		mask:true
+	})
 	let p = uni.request({
-	url,
-	method: 'POST',
-	data: genReqBody(param)
+		url,
+		method: 'POST',
+		data: genReqBody(param)
 	}).then(res => {
-		let resBody = res[1].data;
+		uni.hideLoading();
+		let resBody = res[1].data;	
 		if (resBody && typeof resBody === 'object') {
 		  if (resBody.code === 0) {
 			return resBody.data;
@@ -84,11 +88,6 @@ export function request(url, param, callback) {
 			  message = '服务器错误';
 			}
 			throw new MyError(message, resBody.code, extra);
-			wx.showToast({
-			  title: message,
-			  duration: 1000,
-			  icon: 'none'
-			})
 		  }
 		}
 		throw new MyError('服务器错误', -1, resBody);

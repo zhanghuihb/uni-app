@@ -397,7 +397,7 @@ var render = function() {
       _c(
         "v-uni-view",
         { staticClass: _vm._$g(24, "sc"), attrs: { _i: 24 } },
-        _vm._l(_vm._$g(25, "f"), function(goods, index, $23, $33) {
+        _vm._l(_vm._$g(25, "f"), function(goods, gindex, $23, $33) {
           return _c(
             "v-uni-view",
             {
@@ -448,7 +448,10 @@ var render = function() {
                 "v-uni-view",
                 {
                   staticClass: _vm._$g("31-" + $33, "sc"),
-                  attrs: { _i: "31-" + $33 },
+                  attrs: {
+                    "data-gindex": _vm._$g("31-" + $33, "a-data-gindex"),
+                    _i: "31-" + $33
+                  },
                   on: {
                     click: function($event) {
                       return _vm.$handleViewEvent($event)

@@ -16,11 +16,14 @@
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;
 	        flex-direction: row;
+	height: 50rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
 }
 .latest-ico {
 	width: 30rpx;
 	height: 30rpx;
-	margin-top: 10rpx;
 }
 .latest-title {
 	font-size: 20px;
@@ -30,6 +33,7 @@
 .latest-content {
 	width: 100%;
 	white-space: nowrap;
+	padding: 0 0 10rpx 0;
 }
 .single-goods {
 	display: inline-block;
@@ -62,5 +66,114 @@
 	margin-top: 10rpx;
 	font-size: 10px;
 	color: grey;
+}
+
+/* 热点新闻 */
+.hot-news {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding: 0rpx 20rpx 20rpx 20rpx;
+}
+.single-hot-news {
+	width: 350rpx;
+	height: 200rpx;
+	margin-top: 10rpx;
+}
+
+/* 猜你喜欢 */
+.guess-u-like {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+}
+.single-like-goods {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	padding: 0rpx 20rpx 20rpx 20rpx;
+}
+.goods-like-image {
+	width: 180rpx;
+	height: 240rpx;
+	-webkit-border-radius: %3;
+	        border-radius: %3;
+}
+.goods-like-desc {
+	width: 410rpx;
+	height: 240rpx;
+	margin-left: 20rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.goods-like-name {
+	width: 370rpx;
+	font-size: 18px;
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.goods-like-want-buy {
+	font-size: 14px;
+}
+.goods-like-info {
+	font-size: 14px;
+}
+.goods-like-operation {
+	width: 160rpx;
+	height: 240rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	border-left: dashed 2px #dbdbda;
+}
+.goods-zan-ico {
+	width: 40rpx;
+	height: 40rpx;
+}
+.goods-zan-desc {
+	font-size: 14px;
+	color: #feab2a;
+}
+.goods-zan-animation {
+	font-size: 14px;
+	color: #feab2a;
+	opacity: 0;
 }
 

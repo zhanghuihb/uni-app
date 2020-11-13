@@ -54,7 +54,7 @@
 			</view>
 		</view>
 		<view class="page-block guess-u-like">
-			<view class="single-like-goods" v-for="(goods,index) in latestPublishGoods" :key="index">
+			<view class="single-like-goods" v-for="(goods,gindex) in latestPublishGoods" :key="gindex">
 				<image :src="goods.goodsImage" class="goods-like-image"></image>
 				<view class="goods-like-desc">
 					<view class="goods-like-name">
@@ -67,10 +67,10 @@
 						{{goods.publishTime}}
 					</view>
 				</view>
-				<view class="goods-like-operation" @click="praiseMe">
+				<view class="goods-like-operation" :data-gindex="gindex" @click="praiseMe">
 					<image src="../../static/index/zan.png" class="goods-zan-ico"></image>
 					<view class="goods-zan-desc">点赞</view>
-					<view class="goods-zan-animation" :animation="animationData">+1</view>
+					<view class="goods-zan-animation" :animation="animationDataArr[gindex]">+1</view>
 				</view>
 			</view>
 		</view>
@@ -87,7 +87,8 @@
 				carousels: [],
 				latestPublishGoods: [],
 				indexHotNews: [],
-				animationData: {}
+				animationData: {},
+				animationDataArr: [],
 			}
 		},
 		onLoad() {
@@ -101,6 +102,12 @@
 		onUnload() {
 			// 页面卸载的时候，清除动画对象
 			this.animationData = {};
+			this.animationDataArr = [];
+		},
+		onPullDownRefresh() {
+			this.getIndexCarousel();
+			this.getIndexLatestPublish();
+			this.getIndexHotNews();
 		},
 		methods: {
 			getIndexCarousel(){
@@ -116,6 +123,8 @@
 				common.request(ApiUrl.mongo.getIndexLatestPublish,param).then(
 					res => {
 						this.latestPublishGoods = res;
+						// 停止页面下拉刷新
+						uni.stopPullDownRefresh();
 					}
 				)
 			},
@@ -128,15 +137,19 @@
 				)
 			},
 			// 实现点赞动画效果
-			praiseMe(){
+			praiseMe(e){
+				var gindex = e.currentTarget.dataset.gindex;
 				// 构建动画实例
 				this.animation.translateY(-60).opacity(1).step({duration: 500});
 				// 导出动画实例到组建，实现动画效果
-				this.animationData = this.animation.export();
+				this.animationData = this.animation;
+				// 注意：由于 JavaScript 的限制，Vue 无法检测数组/对象的新增；无法检测通过索引改变数组的操作
+				this.$set(this.animationDataArr,gindex,this.animationData.export());
 				//  还原动画
 				setTimeout(function() {
 					this.animation.translateY(0).opacity(0).step({duration: 0});
-					this.animationData = this.animation.export();
+					this.animationData = this.animation;
+					this.$set(this.animationDataArr,gindex,this.animationData.export());
 				}.bind(this), 500);
 			}
 		}

@@ -8043,7 +8043,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 var baseUrl = {
   mongo: {
-    dev: 'http://192.168.2.49:8090/mongo',
+    dev: 'http://192.168.2.168:8090/mongo',
     prod: 'http://106.14.47.3:8090/mongo' } };
 
 
@@ -8061,7 +8061,8 @@ var b = function b() {var c = arguments.length > 0 && arguments[0] !== undefined
     login: b('mongo') + '/user/skip/login',
     saveOpinion: b('mongo') + '/opinion/saveOpinion',
     getIndexCarousel: b('mongo') + '/index/getIndexCarousel',
-    getIndexLatestPublish: b('mongo') + '/index/getIndexLatestPublish' } };exports.default = _default;
+    getIndexLatestPublish: b('mongo') + '/index/getIndexLatestPublish',
+    getIndexHotNews: b('mongo') + '/index/getIndexHotNews' } };exports.default = _default;
 
 /***/ }),
 /* 18 */
@@ -8141,6 +8142,9 @@ function genReqBody(param) {
   * 对 Tool.wx.request 进一步处理
   */
 function request(url, param, callback) {
+  uni.showLoading({
+    mask: true });
+
   var p = uni.request({
     url: url,
     method: 'POST',
@@ -8158,11 +8162,6 @@ function request(url, param, callback) {
           message = '服务器错误';
         }
         throw new MyError(message, resBody.code, extra);
-        wx.showToast({
-          title: message,
-          duration: 1000,
-          icon: 'none' });
-
       }
     }
     throw new MyError('服务器错误', -1, resBody);

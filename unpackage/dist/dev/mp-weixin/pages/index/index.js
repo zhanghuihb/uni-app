@@ -135,7 +135,54 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -203,7 +250,63 @@ var common = _interopRequireWildcard(__webpack_require__(/*! @/common/common.js 
 //
 //
 //
-var _default = { data: function data() {return { carousels: [], latestPublishGoods: [] };}, onLoad: function onLoad() {this.getIndexCarousel();this.getIndexLatestPublish();}, methods: { getIndexCarousel: function getIndexCarousel() {var _this = this;var param = {};common.request(_apiUrl.default.mongo.getIndexCarousel, param).then(function (res) {_this.carousels = res;});}, getIndexLatestPublish: function getIndexLatestPublish() {var _this2 = this;var param = {};common.request(_apiUrl.default.mongo.getIndexLatestPublish, param).then(function (res) {_this2.latestPublishGoods = res;});} } };exports.default = _default;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { carousels: [], latestPublishGoods: [], indexHotNews: [], animationData: {}, animationDataArr: [] };}, onLoad: function onLoad() {// 页面创建时，创建一个临时动画对象
+    this.animation = uni.createAnimation();this.getIndexCarousel();this.getIndexLatestPublish();this.getIndexHotNews();}, onUnload: function onUnload() {// 页面卸载的时候，清除动画对象
+    this.animationData = {};this.animationDataArr = [];}, onPullDownRefresh: function onPullDownRefresh() {this.getIndexCarousel();this.getIndexLatestPublish();this.getIndexHotNews();}, methods: { getIndexCarousel: function getIndexCarousel() {var _this = this;var param = {};common.request(_apiUrl.default.mongo.getIndexCarousel, param).then(function (res) {_this.carousels = res;});}, getIndexLatestPublish: function getIndexLatestPublish() {var _this2 = this;var param = {};common.request(_apiUrl.default.mongo.getIndexLatestPublish, param).then(function (res) {_this2.latestPublishGoods = res; // 停止页面下拉刷新
+        uni.stopPullDownRefresh();});}, getIndexHotNews: function getIndexHotNews() {var _this3 = this;var param = {};common.request(_apiUrl.default.mongo.getIndexHotNews, param).then(function (res) {_this3.indexHotNews = res;});}, // 实现点赞动画效果
+    praiseMe: function praiseMe(e) {var gindex = e.currentTarget.dataset.gindex; // 构建动画实例
+      this.animation.translateY(-60).opacity(1).step({ duration: 500 }); // 导出动画实例到组建，实现动画效果
+      this.animationData = this.animation; // 注意：由于 JavaScript 的限制，Vue 无法检测数组/对象的新增；无法检测通过索引改变数组的操作
+      this.$set(this.animationDataArr, gindex, this.animationData.export()); //  还原动画
+      setTimeout(function () {this.animation.translateY(0).opacity(0).step({ duration: 0 });this.animationData = this.animation;this.$set(this.animationDataArr, gindex, this.animationData.export());}.bind(this), 500);} } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 17 */,

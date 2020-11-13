@@ -5,14 +5,15 @@
 			"style": {
 				"app-plus": {
 					"titleNView": false //禁用原生导航栏
-				}
+				},
+				"enablePullDownRefresh": true
 			}
 		}
 	    ,{
             "path" : "pages/search/search",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "搜索",
                 "enablePullDownRefresh": false
             }
             
@@ -21,7 +22,7 @@
             "path" : "pages/me/me",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "个人中心",
                 "enablePullDownRefresh": false
             }
             
